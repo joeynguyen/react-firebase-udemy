@@ -19,7 +19,6 @@ var notify = function(error) {
   } else if (error.message) {
     title += error.message;
   }
-
   if(error.filename) {
     var file = error.filename.split('/');
     message += file[file.length-1];
@@ -47,12 +46,12 @@ function bundle() {
     .bundle()
     .on('error', notify)
     .pipe(source('main.js'))
-    .pipe(gulp.dest('./'))
+    .pipe(gulp.dest('./'));
 }
-bundler.on('update', bundle)
+bundler.on('update', bundle);
 
 gulp.task('build', function() {
-  bundle()
+  bundle();
 });
 
 gulp.task('serve', function(done) {
@@ -62,9 +61,9 @@ gulp.task('serve', function(done) {
         enable: true,
         filter: function(filePath, cb) {
           if(/main.js/.test(filePath)) {
-            cb(true)
+            cb(true);
           } else if(/style.css/.test(filePath)){
-            cb(true)
+            cb(true);
           }
         }
       },
