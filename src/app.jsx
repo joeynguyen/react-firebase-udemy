@@ -1,6 +1,7 @@
 var React = require('react'),
     ReactFire = require('reactfire'),
     Firebase = require('firebase'),
+    Header = require('./header'),
     rootUrl = 'https://glaring-fire-1823.firebaseio.com/';
 
 var App = React.createClass({
@@ -10,10 +11,12 @@ var App = React.createClass({
         // this.state.items => {}
     },
     render: function() {
-        console.log(this.state);
-        return <h1 className="red">
-            Hello world!
-        </h1>
+        return <div className="row panel panel-default">
+            <div className="col-md-8 col-md-offset-2">
+                <h2 className="text-center">To-Do List</h2>
+                <Header />
+            </div>
+        </div>
     }
 });
 
