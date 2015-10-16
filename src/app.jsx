@@ -8,13 +8,15 @@ var App = React.createClass({
     mixins: [ ReactFire ],
     componentWillMount: function() {
         this.bindAsObject(new Firebase(rootUrl + 'items/'), 'items');
-        // this.state.items => {}
+        // shortcut for:
+        // this.firebase = new Firebase(rootUrl + 'items/');
+        // this.bindAsObject(this.firebase, 'items');
     },
     render: function() {
         return <div className="row panel panel-default">
             <div className="col-md-8 col-md-offset-2">
                 <h2 className="text-center">To-Do List</h2>
-                <Header />
+                <Header itemsStore={this.firebaseRefs.items} />
             </div>
         </div>
     }
