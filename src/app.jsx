@@ -14,10 +14,11 @@ var App = React.createClass({
         }
     },
     componentWillMount: function() {
-        var firebase = new Firebase(rootUrl + 'items/');
-        this.bindAsObject(firebase, 'items');
+        // Have to add 'this' in front to make firebase object usable everywhere in this app
+        this.firebase = new Firebase(rootUrl + 'items/');
+        this.bindAsObject(this.firebase, 'items');
         // FireBase has an event called 'value' for when it sees data flow in from server
-        firebase.on('value', this.handleDataLoaded);
+        this.firebase.on('value', this.handleDataLoaded);
     },
     render: function() {
         return <div className="row panel panel-default">
@@ -27,12 +28,32 @@ var App = React.createClass({
                 <hr />
                 <div className={"content " + (this.state.loaded ? 'loaded':'')}>
                     <List items={this.state.items} />
+                    {this.showDeleteButton()}
                 </div>
             </div>
         </div>
     },
     handleDataLoaded: function() {
         this.setState({ loaded: true })
+    },
+    showDeleteButton: function() {
+        if (this.state.loaded) {
+            return <div className="text-center clear-complete">
+                <hr />
+                <button onClick={this.onDeleteDone} className="btn btn-default">Clear Completed</button>
+            </div>;
+        } else {
+            return;
+        }
+    },
+    onDeleteDone: function() {
+        for (var key in this.state.items) {
+            // being explicit with 'done' value to future-proof in the event
+            // that we have a value that's not a boolean like 'in-progress'
+            if (this.state.items[key].done === true) {
+                this.firebase.child(key).remove();
+            }
+        }
     }
 });
 
