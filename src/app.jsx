@@ -24,6 +24,7 @@ var App = React.createClass({
             <div className="col-md-8 col-md-offset-2">
                 <h2 className="text-center">To-Do List</h2>
                 <Header itemsStore={this.firebaseRefs.items} />
+                <hr />
                 <div className={"content " + (this.state.loaded ? 'loaded':'')}>
                     <List items={this.state.items} />
                 </div>
