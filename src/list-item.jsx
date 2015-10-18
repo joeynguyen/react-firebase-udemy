@@ -24,7 +24,7 @@ module.exports = React.createClass({
                         value={this.state.text}
                     />
                     <span className="input-group-btn">
-                        <button className="btn btn-default">
+                        <button onClick={this.handleDelete} className="btn btn-default">
                             Delete
                         </button>
                     </span>
@@ -34,6 +34,9 @@ module.exports = React.createClass({
         var change = { done: event.target.checked }
         this.setState(change);
         this.firebase.update(change);
+    },
+    handleDelete: function() {
+        this.firebase.remove();
     }
 });
 
