@@ -24,6 +24,7 @@ module.exports = React.createClass({
                     </span>
                     <input
                         type="text"
+                        disabled={this.state.done}
                         className="form-control"
                         onChange={this.handleEditText}
                         value={this.state.text}
